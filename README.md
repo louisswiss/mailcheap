@@ -2,9 +2,12 @@
 
 Mailcheap is a self-hosted newsletter app on Amazon SES. Write an issue, send it to your list, publish it on the web. About $0.10 per 1,000 emails.
 
+> [!NOTE]
+> This is [Marc Lou's Mailcheap](https://github.com/marclou/mailcheap) with [SparkLoop](https://dash.sparkloop.app/signup?aff=010ac617) built in: show new readers other newsletters and brand offers after they sign up, get readers back from the newsletters that recommend you, and earn from paid recommendations and offers. Everything else is the original.
+
 ![Mailcheap overview](docs/screenshots/overview.webp)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmarclou%2Fmailcheap&project-name=mailcheap&repository-name=mailcheap&env=MONGODB_URI,ADMIN_EMAIL,ADMIN_PASSWORD,SESSION_SECRET&envDescription=Database%2C%20login%20and%20signing%20secret.%20ADMIN_PASSWORD%20needs%2012%2B%20characters%2C%20SESSION_SECRET%2032%2B%20%28run%3A%20openssl%20rand%20-base64%2048%29.%20Add%20SES%20and%20QStash%20after%20the%20first%20deploy.&envLink=https%3A%2F%2Fgithub.com%2Fmarclou%2Fmailcheap%23environment-variables)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flouisswiss%2Fmailcheap&project-name=mailcheap&repository-name=mailcheap&env=MONGODB_URI,ADMIN_EMAIL,ADMIN_PASSWORD,SESSION_SECRET&envDescription=Database%2C%20login%20and%20signing%20secret.%20ADMIN_PASSWORD%20needs%2012%2B%20characters%2C%20SESSION_SECRET%2032%2B%20%28run%3A%20openssl%20rand%20-base64%2048%29.%20Add%20SES%20and%20QStash%20after%20the%20first%20deploy.&envLink=https%3A%2F%2Fgithub.com%2Fmarclou%2Fmailcheap%23environment-variables)
 
 > [!IMPORTANT]
 > **No support.** This is a one-time open-source release. Issues are off, and setup questions go unanswered. Fork it, deploy it, make it yours.
@@ -41,7 +44,7 @@ Mailcheap is the rest of what a newsletter needs, in one small Next.js app: an e
 
 **Grow and earn with SparkLoop** (optional)
 
-- Connect a free [SparkLoop](https://dash.sparkloop.app/signup?aff=010ac617) account from any newsletter's settings to add four pages: Signup flow, Welcome survey, Offers and Recommendations.
+- Four pages for a free [SparkLoop](https://dash.sparkloop.app/signup?aff=010ac617) account: Signup flow, Welcome survey, Offers and Recommendations. Each one explains itself until you connect.
 - After each signup on your archive, readers see other newsletters to join, a welcome survey and brand offers.
 - Free recommendations bring you readers from other newsletters. They join your list on their own.
 - Paid recommendations and offers earn you money once SparkLoop approves your newsletter as a partner.
@@ -62,6 +65,10 @@ Mailcheap is the rest of what a newsletter needs, in one small Next.js app: an e
 | ![Editor](docs/screenshots/editor.webp) | ![Campaign report](docs/screenshots/report.webp) |
 | **Contacts** | **Public archive** |
 | ![Contacts](docs/screenshots/contacts.webp) | ![Public archive](docs/screenshots/archive.webp) |
+| **SparkLoop signup flow** | **SparkLoop offers** |
+| ![SparkLoop signup flow](docs/screenshots/sparkloop-signup-flow.webp) | ![SparkLoop offers](docs/screenshots/sparkloop-offers.webp) |
+| **A SparkLoop offer in an issue** | **Connecting SparkLoop** |
+| ![A SparkLoop offer in an issue](docs/screenshots/sparkloop-card.webp) | ![Connecting SparkLoop](docs/screenshots/sparkloop-connect.webp) |
 
 <details>
 <summary>Issue page</summary>
