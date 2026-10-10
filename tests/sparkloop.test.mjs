@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { openSecret, sealSecret } from "../lib/secret-box.js";
-import { getScriptTag, isShownOn } from "../lib/sparkloop-embed.js";
+import { getScriptTag, isShownOn, openSignupFlow } from "../lib/sparkloop-embed.js";
 import { describeGeo, describeOfferPayout } from "../lib/sparkloop-format.js";
 import { createWebhookToken, hashWebhookToken, isWebhookToken, readReferral } from "../lib/sparkloop-referrals.js";
 
@@ -63,8 +63,46 @@ test("the signup flow opens on pages its visibility rules cover", () => {
 test("the script tag names the publication", () => {
 	assert.equal(
 		getScriptTag("pub_3f9c2a71d0be"),
-		'<script async src="https://js.sparkloop.app/embed.js?publication_id=pub_3f9c2a71d0be" data-sparkloop></script>'
+		'<script async src="https://script.sparkloop.app/embed.js?publication_id=pub_3f9c2a71d0be" data-sparkloop></script>'
 	);
+});
+
+// Archive forms submit without a page load, often before SparkLoop's script has loaded.
+test("a signup before SparkLoop's script is ready opens the flow once it loads, and the wait ends", (t) => {
+	t.mock.timers.enable({ apis: ["setTimeout", "Date"] });
+	const opened = [];
+	const sl = { trackSubscriber: (email) => opened.push(email) };
+	let hasScript = true;
+	globalThis.window = {};
+	globalThis.document = { querySelector: (selector) => (hasScript && selector === "script[data-sparkloop]" ? {} : null) };
+	t.after(() => {
+		delete globalThis.window;
+		delete globalThis.document;
+	});
+
+	openSignupFlow("maya@example.com");
+	t.mock.timers.tick(2_000);
+	assert.deepEqual(opened, []);
+	globalThis.window.SL = sl;
+	t.mock.timers.tick(250);
+	assert.deepEqual(opened, ["maya@example.com"]);
+	t.mock.timers.tick(5_000);
+	assert.deepEqual(opened, ["maya@example.com"]);
+
+	openSignupFlow("sam@example.com");
+	assert.deepEqual(opened, ["maya@example.com", "sam@example.com"]);
+
+	globalThis.window.SL = undefined;
+	openSignupFlow("lee@example.com");
+	t.mock.timers.tick(15_000);
+	globalThis.window.SL = sl;
+	t.mock.timers.tick(1_000);
+	assert.deepEqual(opened, ["maya@example.com", "sam@example.com"]);
+
+	hasScript = false;
+	openSignupFlow("kai@example.com");
+	t.mock.timers.tick(1_000);
+	assert.deepEqual(opened, ["maya@example.com", "sam@example.com"]);
 });
 
 test("payouts and countries read like the SparkLoop directory", () => {

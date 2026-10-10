@@ -18,7 +18,7 @@ Mailcheap is provided as is, with no security support and no promise of fixes. I
 - SparkLoop (optional):
   - The API key is stored encrypted (AES-256-GCM, with a key derived from `SESSION_SECRET`).
   - The referral webhook's URL carries a random token, stored only as a SHA-256 hash. It answers 404 once SparkLoop is disconnected, only adds readers to the newsletter linked to the referral's publication, and is rate limited per newsletter.
-  - With the signup flow on, a newsletter's archive pages load SparkLoop's script from `js.sparkloop.app`.
+  - With the signup flow on, a newsletter's archive pages load SparkLoop's script from `script.sparkloop.app`.
   - Card links in issues get the reader's email at the click redirect, only for SparkLoop's own domains, and never for test sends or link scanners. An email never contains it, and text anyone writes in an issue can't ask for it.
 
 ## The archive's domain
